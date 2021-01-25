@@ -1,0 +1,2034 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "preview",
+    "title": "Azure IoT Central",
+    "description": "Azure IoT Central is a service that makes it easy to connect, monitor, and manage your IoT devices at scale."
+  },
+  "basePath": "/api/preview",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow",
+      "scopes": { "user_impersonation": "impersonate your user account" }
+    }
+  },
+  "security": [],
+  "paths": {
+    "/actions": {
+      "get": {
+        "operationId": "Actions_List",
+        "summary": "Get the list of actions in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ActionCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/actions/{action_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "action_id",
+          "description": "Unique ID of the action.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "Actions_Get",
+        "summary": "Get an action by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Action" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Actions_Set",
+        "summary": "Create or update an action",
+        "description": "Create an action which triggers when a rule is fired in IoT Central.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Action body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Action" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Action" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Actions_Remove",
+        "summary": "Delete an action",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/apiTokens": {
+      "get": {
+        "operationId": "ApiTokens_List",
+        "summary": "Get the list of API tokens in an application. The token value will never be returned for security reasons.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ApiTokenCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/apiTokens/{token_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "token_id",
+          "description": "Unique ID for the API token.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "ApiTokens_Get",
+        "summary": "Get an API token by ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ApiToken" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ApiTokens_Set",
+        "summary": "Create a new API token in the application to use in the IoT Central public API. The token value will be returned in the response, and won't be returned again in subsequent requests.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "API token body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/ApiToken" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ApiToken" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ApiTokens_Remove",
+        "summary": "Delete an API token.",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/continuousDataExports": {
+      "get": {
+        "operationId": "ContinuousDataExports_List",
+        "summary": "Get the list of continuous data exports in an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ContinuousDataExportCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/continuousDataExports/{export_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "export_id",
+          "description": "Unique ID for the continuous data export.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "ContinuousDataExports_Get",
+        "summary": "Get a continuous data export by ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ContinuousDataExport" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ContinuousDataExports_Set",
+        "summary": "Create a new continuous data export or update an existing one by ID.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Data export body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/ContinuousDataExport" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/ContinuousDataExport" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ContinuousDataExports_Remove",
+        "summary": "Delete a continuous data export.",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/deviceGroups": {
+      "get": {
+        "operationId": "DeviceGroups_List",
+        "summary": "Get the list of device groups in an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceGroupCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/deviceTemplates": {
+      "get": {
+        "operationId": "DeviceTemplates_List",
+        "summary": "Get the list of device templates in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTemplateCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/deviceTemplates/{device_template_id}": {
+      "parameters": [{ "$ref": "#/parameters/DeviceTemplateId" }],
+      "get": {
+        "operationId": "DeviceTemplates_Get",
+        "summary": "Get a device template by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTemplate" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeviceTemplates_Remove",
+        "summary": "Delete a device template",
+        "description": "Delete an existing device template by device ID.",
+        "responses": { "204": { "description": "Success" } }
+      },
+      "put": {
+        "operationId": "DeviceTemplates_Set",
+        "summary": "Publish a new device template or update the cloud properties and overrides of an existing device template. Default views will be automatically generated for new device templates created this way.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device template body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceTemplate" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTemplate" }
+          }
+        }
+      }
+    },
+    "/deviceTemplates/{device_template_id}/merged": {
+      "parameters": [{ "$ref": "#/parameters/DeviceTemplateId" }],
+      "get": {
+        "operationId": "DeviceTemplates_GetMerged",
+        "summary": "Get a merged device template by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTemplate" }
+          }
+        }
+      }
+    },
+    "/deviceTemplates/{device_template_id}/devices": {
+      "parameters": [{ "$ref": "#/parameters/DeviceTemplateId" }],
+      "get": {
+        "operationId": "DeviceTemplates_ListDevices",
+        "summary": "Get devices for a template",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/devices": {
+      "get": {
+        "operationId": "Devices_List",
+        "summary": "Get the list of devices in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/devices/{device_id}": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_Get",
+        "summary": "Get a device by ID",
+        "description": "Get details about an existing device by device ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Device" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_Set",
+        "summary": "Create or update a device",
+        "description": "Create a new device or update an existing one by device ID.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Device" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Device" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Devices_Remove",
+        "summary": "Delete a device",
+        "description": "Delete an existing device by device ID.",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/jobs": {
+      "get": {
+        "operationId": "Jobs_List",
+        "summary": "Get the list of jobs in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/JobCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/jobs/{job_id}": {
+      "parameters": [{ "$ref": "#/parameters/JobId" }],
+      "get": {
+        "operationId": "Jobs_Get",
+        "summary": "Get a job by ID",
+        "description": "Get details about a running or completed job by job ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Job" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Jobs_Set",
+        "summary": "Execute a new job",
+        "description": "Create and execute a new job via its job definition.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Job definition.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Job" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Job" }
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}/devices": {
+      "parameters": [{ "$ref": "#/parameters/JobId" }],
+      "get": {
+        "operationId": "Jobs_GetDevices",
+        "summary": "Get device statuses",
+        "description": "Get the list of individual device statuses by job ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/JobDeviceStatusCollection" }
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}/rerun/{rerun_id}": {
+      "parameters": [
+        { "$ref": "#/parameters/JobId" },
+        {
+          "in": "path",
+          "name": "rerun_id",
+          "description": "Unique ID of the job rerun.",
+          "x-ms-parameter-location": "method",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "put": {
+        "operationId": "Jobs_Rerun",
+        "summary": "Rerun a job on failed devices",
+        "description": "Execute a rerun of an existing job on all failed devices.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Job" }
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}/stop": {
+      "parameters": [{ "$ref": "#/parameters/JobId" }],
+      "post": {
+        "operationId": "Jobs_Stop",
+        "summary": "Stop a running job",
+        "description": "Stop execution of a job that is currently running.",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/jobs/{job_id}/resume": {
+      "parameters": [{ "$ref": "#/parameters/JobId" }],
+      "post": {
+        "operationId": "Jobs_Resume",
+        "summary": "Resume a stopped job",
+        "description": "Resume execution of an existing stopped job.",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/roles": {
+      "get": {
+        "operationId": "Roles_List",
+        "summary": "Get the list of roles in an application.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/RoleCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/roles/{role_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "role_id",
+          "description": "Unique ID for the role.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "Roles_Get",
+        "summary": "Get a role by ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Role" }
+          }
+        }
+      }
+    },
+    "/rules": {
+      "get": {
+        "operationId": "Rules_List",
+        "summary": "Get the list of rules in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/RuleCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/rules/{rule_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "rule_id",
+          "description": "Unique ID of the rule.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "Rules_Get",
+        "summary": "Get a rule by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Rule" }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "Users_List",
+        "summary": "Get the list of users in an application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/UserCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      }
+    },
+    "/users/{user_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "user_id",
+          "description": "Unique ID of the user.",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "operationId": "Users_Get",
+        "summary": "Get a user by ID",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Users_Set",
+        "summary": "Create or update a user in the application",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Users_Remove",
+        "summary": "Delete a user",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/devices/{device_id}/attestation": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_GetAttestation",
+        "summary": "Get device attestation",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Attestation" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_SetAttestation",
+        "summary": "Create or update an individual device attestation",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Individual device attestation body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Attestation" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Attestation" }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Devices_RemoveAttestation",
+        "summary": "Remove an individual device attestation",
+        "responses": { "204": { "description": "Success" } }
+      }
+    },
+    "/devices/{device_id}/cloudProperties": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_GetCloudProperties",
+        "summary": "Get device cloud properties",
+        "description": "Get all cloud property values of a device by device ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCloudProperties" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_UpdateCloudProperties",
+        "summary": "Update device cloud properties",
+        "description": "Update all cloud property values of a device by device ID.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device properties.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceCloudProperties" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCloudProperties" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/commands/{command_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/CommandName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetCommandHistory",
+        "summary": "Get device command history",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommandCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      },
+      "post": {
+        "operationId": "Devices_ExecuteCommand",
+        "summary": "Execute a device command",
+        "description": "Execute a command on a device.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device command body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/components/{component_name}/commands/{command_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ComponentName" },
+        { "$ref": "#/parameters/CommandName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetComponentCommandHistory",
+        "summary": "Get component command history",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommandCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      },
+      "post": {
+        "operationId": "Devices_ExecuteComponentCommand",
+        "summary": "Execute a component command",
+        "description": "Execute a command on a component.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device command body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/commands/{command_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/CommandName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleCommandHistory",
+        "summary": "Get module command history",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommandCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      },
+      "post": {
+        "operationId": "Devices_ExecuteModuleCommand",
+        "summary": "Execute a module command",
+        "description": "Execute a command on a module.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device command body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/components/{component_name}/commands/{command_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/ComponentName" },
+        { "$ref": "#/parameters/CommandName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleComponentCommandHistory",
+        "summary": "Get module component command history",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommandCollection" }
+          }
+        },
+        "x-ms-pageable": { "nextLinkName": "nextLink" }
+      },
+      "post": {
+        "operationId": "Devices_ExecuteModuleComponentCommand",
+        "summary": "Execute a module component command",
+        "description": "Execute a command on a module.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device command body.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCommand" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/credentials": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_GetCredentials",
+        "summary": "Get device credentials",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceCredentials" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/properties": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_GetProperties",
+        "summary": "Get device properties",
+        "description": "Get all property values of a device by device ID.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_UpdateProperties",
+        "summary": "Update device properties",
+        "description": "Update all property values of a device by device ID.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device properties.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/components/{component_name}/properties": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ComponentName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetComponentProperties",
+        "summary": "Get device properties for a specific component",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_UpdateComponentProperties",
+        "summary": "Update device properties for a specific component",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Device properties.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/properties": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleProperties",
+        "summary": "Get module properties",
+        "description": "Get all property values of a module.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_UpdateModuleProperties",
+        "summary": "Update module properties",
+        "description": "Update all property values of a module.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Module properties.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/components/{component_name}/properties": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/ComponentName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleComponentProperties",
+        "summary": "Get module properties for a specific component",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Devices_UpdateModuleComponentProperties",
+        "summary": "Update module properties for a specific component",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Module properties.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceProperties" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/components": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_ListComponents",
+        "summary": "List the components present in a device",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Collection" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/components/{component_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ComponentName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetComponent",
+        "summary": "Get a component present in a device",
+        "responses": {
+          "200": { "description": "Success", "schema": { "type": "object" } }
+        }
+      }
+    },
+    "/devices/{device_id}/modules": {
+      "parameters": [{ "$ref": "#/parameters/DeviceId" }],
+      "get": {
+        "operationId": "Devices_ListModules",
+        "summary": "List the modules present in a device",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Collection" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModule",
+        "summary": "Get a module present in a device",
+        "responses": {
+          "200": { "description": "Success", "schema": { "type": "object" } }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/components": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" }
+      ],
+      "get": {
+        "operationId": "Devices_ListModuleComponents",
+        "summary": "List the components present in a module",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Collection" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/components/{component_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/ComponentName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleComponent",
+        "summary": "Get a component present in a module",
+        "responses": {
+          "200": { "description": "Success", "schema": { "type": "object" } }
+        }
+      }
+    },
+    "/devices/{device_id}/telemetry/{telemetry_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/TelemetryName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetTelemetryValue",
+        "summary": "Get device telemetry value",
+        "description": "Get the last telemetry value from a device.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTelemetry" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/components/{component_name}/telemetry/{telemetry_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ComponentName" },
+        { "$ref": "#/parameters/TelemetryName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetComponentTelemetryValue",
+        "summary": "Get component telemetry value",
+        "description": "Get the last telemetry value from a component.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTelemetry" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/telemetry/{telemetry_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/TelemetryName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleTelemetryValue",
+        "summary": "Get module telemetry value",
+        "description": "Get the last telemetry value from a module.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTelemetry" }
+          }
+        }
+      }
+    },
+    "/devices/{device_id}/modules/{module_name}/components/{component_name}/telemetry/{telemetry_name}": {
+      "parameters": [
+        { "$ref": "#/parameters/DeviceId" },
+        { "$ref": "#/parameters/ModuleName" },
+        { "$ref": "#/parameters/ComponentName" },
+        { "$ref": "#/parameters/TelemetryName" }
+      ],
+      "get": {
+        "operationId": "Devices_GetModuleComponentTelemetryValue",
+        "summary": "Get module component telemetry value",
+        "description": "Get the last telemetry value from a module component.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/DeviceTelemetry" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Action": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the action.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the action.",
+          "type": "string"
+        },
+        "type": { "description": "Type of the action.", "type": "string" },
+        "rules": {
+          "description": "Unique IDs of the rules that are tied to the action.",
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 1
+        }
+      },
+      "required": ["type", "rules"],
+      "discriminator": "type"
+    },
+    "EmailAction": { "allOf": [{ "$ref": "#/definitions/Action" }] },
+    "WebhookAction": {
+      "allOf": [
+        { "$ref": "#/definitions/Action" },
+        {
+          "type": "object",
+          "properties": {
+            "url": {
+              "description": "Callback URL of the webhook.",
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": ["url"]
+        }
+      ]
+    },
+    "PowerAutomateAction": { "allOf": [{ "$ref": "#/definitions/Action" }] },
+    "LogicAppsAction": { "allOf": [{ "$ref": "#/definitions/Action" }] },
+    "ActionGroupsAction": { "allOf": [{ "$ref": "#/definitions/Action" }] },
+    "ActionCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of actions.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Action" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of actions.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "ApiToken": {
+      "allOf": [
+        { "$ref": "#/definitions/Permission" },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Unique ID of the API token.",
+              "type": "string",
+              "readOnly": true
+            },
+            "token": {
+              "description": "Value of the API token.",
+              "type": "string",
+              "readOnly": true
+            },
+            "expiry": {
+              "description": "String-formatted date representing the time when the token expires.",
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "ApiTokenCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of API tokens.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/ApiToken" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of API tokens.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Application": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the application.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the application.",
+          "type": "string"
+        },
+        "subdomain": {
+          "description": "The URL subdomain of the application.",
+          "type": "string"
+        },
+        "host": {
+          "description": "The URL host of the application.",
+          "type": "string"
+        }
+      },
+      "required": ["subdomain", "host"]
+    },
+    "Attestation": {
+      "type": "object",
+      "properties": {
+        "type": { "description": "Type of the attestation.", "type": "string" }
+      },
+      "required": ["type"],
+      "discriminator": "type"
+    },
+    "SymmetricKeyAttestation": {
+      "allOf": [
+        { "$ref": "#/definitions/Attestation" },
+        {
+          "type": "object",
+          "properties": {
+            "symmetricKey": {
+              "description": "The symmetric key credentials for this attestation.",
+              "$ref": "#/definitions/SymmetricKey"
+            }
+          },
+          "required": ["symmetricKey"]
+        }
+      ]
+    },
+    "X509Attestation": {
+      "allOf": [
+        { "$ref": "#/definitions/Attestation" },
+        {
+          "type": "object",
+          "properties": {
+            "x509": {
+              "description": "The X.509 credentials for this attestation.",
+              "$ref": "#/definitions/X509"
+            }
+          },
+          "required": ["x509"]
+        }
+      ]
+    },
+    "TpmAttestation": {
+      "allOf": [
+        { "$ref": "#/definitions/Attestation" },
+        {
+          "type": "object",
+          "properties": {
+            "tpm": {
+              "description": "The TPM credentials for this attestation.",
+              "$ref": "#/definitions/Tpm"
+            }
+          },
+          "required": ["tpm"]
+        }
+      ]
+    },
+    "Device": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the device.",
+          "type": "string",
+          "readOnly": true
+        },
+        "etag": {
+          "description": "ETag used to prevent conflict in device updates.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "Display name of the device.",
+          "type": "string"
+        },
+        "instanceOf": {
+          "description": "The device template definition for the device.",
+          "type": "string"
+        },
+        "simulated": {
+          "description": "Whether the device is simulated.",
+          "type": "boolean"
+        },
+        "approved": {
+          "description": "Whether the device has been approved to connect to IoT Central.",
+          "type": "boolean"
+        },
+        "provisioned": {
+          "description": "Whether resources have been allocated for the device.",
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "DeviceCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of devices.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Device" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of devices.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Endpoint": {
+      "type": "object",
+      "properties": {
+        "type": { "description": "Type of the endpoint.", "type": "string" },
+        "connectionString": {
+          "description": "Information for connecting to the endpoint.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the entity to send data to.",
+          "type": "string"
+        }
+      },
+      "required": ["type", "connectionString", "name"],
+      "discriminator": "type"
+    },
+    "StorageEndpoint": { "allOf": [{ "$ref": "#/definitions/Endpoint" }] },
+    "EventHubsEndpoint": { "allOf": [{ "$ref": "#/definitions/Endpoint" }] },
+    "ServiceBusQueueEndpoint": {
+      "allOf": [{ "$ref": "#/definitions/Endpoint" }]
+    },
+    "ServiceBusTopicEndpoint": {
+      "allOf": [{ "$ref": "#/definitions/Endpoint" }]
+    },
+    "ContinuousDataExport": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the continuous data export.",
+          "type": "string",
+          "readOnly": true
+        },
+        "etag": {
+          "description": "ETag used to prevent conflict in continuous data export updates.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "Display name of the continuous data export.",
+          "type": "string"
+        },
+        "endpoint": {
+          "description": "Location where exported data should be sent.",
+          "$ref": "#/definitions/Endpoint"
+        },
+        "status": {
+          "description": "Indicates whether the continuous data export is starting, running, etc.",
+          "type": "string",
+          "readOnly": true
+        },
+        "enabled": {
+          "description": "Boolean indicating whether the continuous data export should be running or not.",
+          "type": "boolean"
+        },
+        "sources": {
+          "description": "Data sources to export to the endpoint.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["devices", "deviceTemplates", "telemetry"]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["endpoint", "enabled", "sources"]
+    },
+    "ContinuousDataExportCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of continuous data exports.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/ContinuousDataExport" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of continuous data exports.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "DeviceCloudProperties": {
+      "description": "Cloud property values associated with the device.",
+      "type": "object"
+    },
+    "DeviceCommand": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The request ID of the device command execution.",
+          "type": "string",
+          "readOnly": true
+        },
+        "request": { "description": "The payload for the device command." },
+        "response": {
+          "description": "The payload of the device command response.",
+          "readOnly": true
+        },
+        "responseCode": {
+          "description": "The status code of the device command response.",
+          "type": "integer",
+          "readOnly": true
+        }
+      }
+    },
+    "DeviceCommandCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of device command executions.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/DeviceCommand" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of device command executions.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "DeviceCredentials": {
+      "type": "object",
+      "properties": {
+        "idScope": {
+          "description": "ID scope for connecting to the IoT Central application.",
+          "type": "string"
+        },
+        "symmetricKey": {
+          "description": "The symmetric key credentials for the device.",
+          "$ref": "#/definitions/SymmetricKey"
+        },
+        "x509": {
+          "description": "The X.509 credential information for the device.",
+          "$ref": "#/definitions/X509"
+        },
+        "tpm": {
+          "description": "The TPM credentials for the device.",
+          "$ref": "#/definitions/Tpm"
+        }
+      },
+      "required": ["idScope"]
+    },
+    "DeviceGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the device group.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the device group.",
+          "type": "string"
+        }
+      }
+    },
+    "DeviceGroupCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of device groups.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/DeviceGroup" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of device groups.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "DeviceProperties": {
+      "description": "Property values associated with the device.",
+      "type": "object"
+    },
+    "DeviceTelemetry": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The last known value of this device telemetry."
+        },
+        "timestamp": {
+          "description": "String-formatted date representing the time when the telemetry value was sent.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "DeviceTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the device template.",
+          "type": "string",
+          "readOnly": true
+        },
+        "etag": {
+          "description": "ETag used to prevent conflict in device template updates.",
+          "type": "string"
+        },
+        "types": {
+          "description": "The types of device to which this template applies.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "displayName": {
+          "description": "Display name of the device template.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Detailed description of the device template.",
+          "type": "string"
+        },
+        "capabilityModel": {
+          "description": "The capability model utilized by this device template.",
+          "type": "object"
+        },
+        "solutionModel": {
+          "description": "The solution model utilized by this device template.",
+          "type": "object"
+        }
+      },
+      "required": ["types", "capabilityModel"]
+    },
+    "DeviceTemplateCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of device templates.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/DeviceTemplate" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of device templates.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Collection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of objects.",
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of objects.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "SymmetricKey": {
+      "type": "object",
+      "properties": {
+        "primaryKey": {
+          "description": "The primary key for this credential.",
+          "type": "string"
+        },
+        "secondaryKey": {
+          "description": "The secondary key for this credential.",
+          "type": "string"
+        }
+      },
+      "required": ["primaryKey", "secondaryKey"]
+    },
+    "Tpm": {
+      "type": "object",
+      "properties": {
+        "endorsementKey": {
+          "description": "The TPM endorsement key for this credential.",
+          "type": "string"
+        }
+      },
+      "required": ["endorsementKey"]
+    },
+    "X509": {
+      "type": "object",
+      "properties": {
+        "clientCertificates": {
+          "description": "The X.509 client certificates for this credential.",
+          "$ref": "#/definitions/X509Certificates"
+        }
+      }
+    },
+    "X509Certificates": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "description": "The primary X.509 certificate for this credential.",
+          "$ref": "#/definitions/X509Certificate"
+        },
+        "secondary": {
+          "description": "The secondary X.509 certificate for this credential.",
+          "$ref": "#/definitions/X509Certificate"
+        }
+      },
+      "required": ["primary"]
+    },
+    "X509Certificate": {
+      "type": "object",
+      "properties": {
+        "certificate": {
+          "description": "The string representation of this certificate.",
+          "type": "string"
+        },
+        "info": {
+          "description": "Information about this certificate.",
+          "readOnly": true,
+          "$ref": "#/definitions/X509CertificateInfo"
+        }
+      }
+    },
+    "X509CertificateInfo": {
+      "type": "object",
+      "properties": {
+        "sha1Thumbprint": {
+          "description": "The SHA-1 hash value of the certificate.",
+          "type": "string"
+        }
+      },
+      "required": ["sha1Thumbprint"]
+    },
+    "Permission": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "description": "List of roles that specify the permissions to access the application.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "description": "ID that specifies the role assignment for this role.",
+                "type": "string"
+              }
+            },
+            "required": ["role"]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["roles"]
+    },
+    "JobData": {
+      "type": "object",
+      "properties": {
+        "type": { "description": "Type of the job data.", "type": "string" },
+        "target": {
+          "description": "The device template which defines the target capability for the job.",
+          "type": "string"
+        },
+        "path": {
+          "description": "The path to the target capability within the device template.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value used to update the target capability, if any."
+        }
+      },
+      "required": ["type", "target", "path"],
+      "discriminator": "type"
+    },
+    "PropertyJobData": { "allOf": [{ "$ref": "#/definitions/JobData" }] },
+    "CommandJobData": { "allOf": [{ "$ref": "#/definitions/JobData" }] },
+    "CloudPropertyJobData": { "allOf": [{ "$ref": "#/definitions/JobData" }] },
+    "JobDeviceStatus": {
+      "properties": {
+        "id": {
+          "description": "ID of the device whose job status is being provided.",
+          "type": "string",
+          "readOnly": true
+        },
+        "status": {
+          "description": "Indicates whether the job is starting, running, etc. for the given device.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "JobDeviceStatusCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of job device statuses.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/JobDeviceStatus" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of job device statuses.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the job.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the job.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Detailed description of the job.",
+          "type": "string"
+        },
+        "group": {
+          "description": "The ID of the device group on which to execute the job.",
+          "type": "string"
+        },
+        "data": {
+          "description": "The capabilites being updated by the job and the values with which they are being updated.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/JobData" },
+          "minItems": 1
+        },
+        "status": {
+          "description": "Indicates whether the job is starting, running, etc.",
+          "type": "string",
+          "readOnly": true
+        }
+      },
+      "required": ["group", "data"]
+    },
+    "JobCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of jobs.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Job" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of jobs.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the role.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the role.",
+          "type": "string"
+        }
+      }
+    },
+    "RoleCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of roles.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Role" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of roles.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique ID of the rule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "displayName": {
+          "description": "Display name of the rule.",
+          "type": "string"
+        }
+      }
+    },
+    "RuleCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of rules.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Rule" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of rules.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "User": {
+      "allOf": [
+        { "$ref": "#/definitions/Permission" },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Unique ID of the user.",
+              "type": "string",
+              "readOnly": true
+            },
+            "type": { "description": "Type of the user.", "type": "string" }
+          },
+          "required": ["type"],
+          "discriminator": "type"
+        }
+      ]
+    },
+    "EmailUser": {
+      "allOf": [
+        { "$ref": "#/definitions/User" },
+        {
+          "type": "object",
+          "properties": {
+            "email": {
+              "description": "Email address of the user.",
+              "type": "string",
+              "format": "email"
+            }
+          },
+          "required": ["email"]
+        }
+      ]
+    },
+    "ServicePrincipalUser": {
+      "allOf": [
+        { "$ref": "#/definitions/User" },
+        {
+          "type": "object",
+          "properties": {
+            "tenantId": {
+              "description": "The AAD tenant ID of the service principal.",
+              "type": "string"
+            },
+            "objectId": {
+              "description": "The AAD object ID of the service principal.",
+              "type": "string"
+            }
+          },
+          "required": ["tenantId", "objectId"]
+        }
+      ]
+    },
+    "UserCollection": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The collection of users.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/User" }
+        },
+        "nextLink": {
+          "description": "URL to get the next page of users.",
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "WebhookActionDevice": {
+      "allOf": [
+        { "$ref": "#/definitions/Device" },
+        {
+          "type": "object",
+          "properties": {
+            "cloudProperties": {
+              "description": "Cloud properties that triggered the webhook.",
+              "type": "object"
+            },
+            "properties": {
+              "description": "Device properties that triggered the webhook.",
+              "type": "object"
+            },
+            "telemetry": {
+              "description": "Device telemetry that triggered the webhook.",
+              "type": "object"
+            }
+          }
+        }
+      ]
+    },
+    "WebhookActionBody": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "description": "Action that triggered the webhook.",
+          "$ref": "#/definitions/Action"
+        },
+        "application": {
+          "description": "Application that triggered the webhook.",
+          "$ref": "#/definitions/Application"
+        },
+        "device": {
+          "description": "Device that triggered the webhook.",
+          "$ref": "#/definitions/WebhookActionDevice"
+        },
+        "rule": {
+          "description": "Rule that triggered the webhook.",
+          "$ref": "#/definitions/Rule"
+        },
+        "timestamp": {
+          "description": "Timestamp at which the webhook was triggered.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["action", "application", "device", "rule", "timestamp"]
+    }
+  },
+  "parameters": {
+    "DeviceTemplateId": {
+      "in": "path",
+      "name": "device_template_id",
+      "description": "Unique ID of the device template.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "DeviceId": {
+      "in": "path",
+      "name": "device_id",
+      "description": "Unique ID of the device.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "ModuleName": {
+      "in": "path",
+      "name": "module_name",
+      "description": "Name of the device module.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "ComponentName": {
+      "in": "path",
+      "name": "component_name",
+      "description": "Name of the device component.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "JobId": {
+      "in": "path",
+      "name": "job_id",
+      "description": "Unique ID of the job.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "CommandName": {
+      "in": "path",
+      "name": "command_name",
+      "description": "Name of this device command.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "TelemetryName": {
+      "in": "path",
+      "name": "telemetry_name",
+      "description": "Name of this device telemetry.",
+      "x-ms-parameter-location": "method",
+      "type": "string",
+      "required": true
+    },
+    "CentralDnsSuffixInPath": {
+      "in": "path",
+      "name": "centralDnsSuffixInPath",
+      "description": "The DNS suffix used as the base for all Azure IoT Central service requests.",
+      "x-ms-parameter-location": "client",
+      "type": "string",
+      "required": true,
+      "default": "azureiotcentral.com",
+      "x-ms-skip-url-encoding": true
+    },
+    "Subdomain": {
+      "in": "path",
+      "name": "subdomain",
+      "description": "The application subdomain.",
+      "x-ms-parameter-location": "client",
+      "type": "string",
+      "required": true
+    }
+  },
+  "x-ms-parameterized-host": {
+    "hostTemplate": "{subdomain}.{centralDnsSuffixInPath}",
+    "parameters": [
+      { "$ref": "#/parameters/CentralDnsSuffixInPath" },
+      { "$ref": "#/parameters/Subdomain" }
+    ]
+  }
+}
