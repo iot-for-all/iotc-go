@@ -13,7 +13,7 @@ import (
 var getCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Get a device template by ID",
-	Long:  `Get a device template by ID.
+	Long: `Get a device template by ID.
 If the '--outputFile' is specified, JSON representation of the given 
 device template is written to the file. This JSON file can be easily
 edited as a template to be used in the 'set' command.`,
@@ -82,7 +82,7 @@ func init() {
 
 	getCmd.Flags().StringP("app", "a", "", "name of the IoT Central application")
 	getCmd.MarkFlagRequired("app")
-	getCmd.Flags().StringP("id", "", "", "unique ID for the job")
+	getCmd.Flags().StringP("id", "", "", "unique ID for the device template")
 	getCmd.MarkFlagRequired("id")
 	getCmd.Flags().StringP("outputFile", "", "", "dump the device template JSON to the given file")
 	getCmd.Flags().BoolP("getMerged", "", false, "get the solution model (overrides, initial values) merged into capability model")

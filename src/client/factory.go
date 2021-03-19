@@ -58,7 +58,11 @@ func GetURL(appName string) (string, error) {
 		return "", err
 	}
 
-	t := Token{Subdomain: appConfig.Subdomain, Credential: appConfig.ApiToken}
+	t := Token{
+		Subdomain:  appConfig.Subdomain,
+		Credential: appConfig.ApiToken,
+		Host:       appConfig.Domain,
+	}
 	host := DefaultTokenHost
 	if t.Host != "" {
 		host = t.Host
@@ -67,4 +71,3 @@ func GetURL(appName string) (string, error) {
 	url := fmt.Sprintf("https://%s.%s%s", t.Subdomain, host, DefaultBasePath)
 	return url, nil
 }
-
