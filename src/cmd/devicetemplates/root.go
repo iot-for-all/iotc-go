@@ -8,9 +8,9 @@ import (
 // deviceTemplatesCmd represents the deviceTemplates command
 var deviceTemplatesCmd = &cobra.Command{
 	Use:   "deviceTemplates",
-	Short: "Create, read, and delete device templates within an IoT Central application",
+	Short: "Create, read, copy (between apps) and delete device templates within an IoT Central application",
 	Long: `Device templates are composed of device capability model and the solution model.
-Create, read, and delete device templates within an IoT Central application.`,
+Create, read, copy (between apps) and delete device templates within an IoT Central application.`,
 }
 
 func init() {

@@ -8,8 +8,8 @@ import (
 // usersCmd represents the users command
 var usersCmd = &cobra.Command{
 	Use:   "users",
-	Short: "Add, update, and remove users within your application",
-	Long: `Add, update, and remove users within your application.`,
+	Short: "Add, update, copy (between apps) and remove users within your application",
+	Long:  `Add, update, copy (between apps) and remove users within your application.`,
 }
 
 func init() {
